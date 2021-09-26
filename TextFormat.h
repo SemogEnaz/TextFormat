@@ -1,23 +1,41 @@
-# TextFormat.h
-This is a console text formatting class, I will update it from time to time. Suggestions are welcome.
+/********************************************************
+Project: Text Formatter
+Name : Zane Gomes
+Week: Seven
+Descreption: header file for the Text Formatter
+********************************************************/
 
-### doc from header file:
+#ifndef TEXTFORMAT_H
+#define TEXTFORMAT_H
 
-####  Commands:
+#include <string>
+#include <iomanip>
+#include <sstream>
+#include <vector>
+#include <cmath>
+#include <iostream>
+
+enum TextFormatEnum{
+FINDTITLE,
+USESETTITLE
+};
+
+using namespace std;
+
+/*  Commands:
 
     @: will center text
     #: will right justify text
     $: will wrap and center text
     *: will generate a title bar
 
+*/
 
-
-
-###  these are some instructions on how to use this class
+/*  these are some instructions on how to use this class
 
     this namespace is intended for display() functions that use the stringstream stuff where, we incase the text to be displayed on one set of titleBars (see example below). 
 
-    you can specify what parts need to be formatted with a with the aforementioned commands
+    you can specify what parts need to be formatted with a with the abovementioned commands
 
     eg:
 
@@ -34,7 +52,7 @@ This is a console text formatting class, I will update it from time to time. Sug
 
         stringstream testText(""); //you can input the text here, ill just do it later for this demo
 
-        testText.str(string()) //this is to clear the contents but not reset the eof flag, it is redundant here, but just fyi
+        testText.str(string()) //this is to clear the contents but not reset the eof flag, it is redundent here, but just fyi
 
         testText << "*\n"
                  << "@Welcome to this program!\n"
@@ -52,7 +70,7 @@ This is a console text formatting class, I will update it from time to time. Sug
     "~" thing and then format the console text accordingly using iomanip functions
     we need to use the namespace functions in the display functions of the classes, 
 
-    so, the output (formatted text) would look like this:
+    so, the output (formated text) would look like this:
 
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //this is a title bar, you can set the character type in the generateTitleBar()
             Welcome to this program!        //centered text
@@ -66,3 +84,48 @@ This is a console text formatting class, I will update it from time to time. Sug
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 */
+
+class TextFormat{
+
+public:
+
+    TextFormat(stringstream&);
+    TextFormat(stringstream&,int);
+
+    //this is the main function call
+    void processInput(TextFormatEnum);
+
+    //bar related functions
+    void calculateBarLength();
+    void appendTitleBar();
+
+    //text formatting style
+    void centerText(string&);
+    void justifyText(string&);
+    void centerTextWrapper(string&);
+
+    //additional processing functions
+    void removeCmdChar(string&, char);
+    void putSpace(int, int);
+
+    void display();
+    int getTitleBarLen();
+    stringstream& getText();
+
+private:
+
+    stringstream originalInputString;
+    stringstream outputString;
+
+    int titleBarLength = 0;
+
+    const char titleBarChar = '~';
+    
+    const char centerChar = '@';
+    const char justifyChar = '#';
+    const char wrapChar = '$';
+    const char barChar = '*';
+
+};
+
+#endif // TEXTFORMAT_H
