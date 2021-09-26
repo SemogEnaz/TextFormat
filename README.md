@@ -12,7 +12,7 @@ doc from header file:
 
 */
 
-/*  these are some instructions on how to use this namespace
+/*  these are some instructions on how to use this class
 
     this namespace is intended for display() functions that use the stringstream stuff where, we incase the text to be displayed on one set of titleBars (see example below). 
 
