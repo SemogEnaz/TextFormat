@@ -15,7 +15,7 @@ This is a console text formatting class, I will update it from time to time. Sug
 
 ###  these are some instructions on how to use this class
 
-    this namespace is intended for display() functions that use the stringstream stuff where, we incase the text to be displayed on one set of titleBars (see example below). 
+    this class is intended for display() functions that use the stringstream stuff where, we incase the text to be displayed on one set of titleBars (see example below). 
 
     you can specify what parts need to be formatted with a with the aforementioned commands
 
