@@ -46,7 +46,7 @@ int main(){
     testStream << "*\n"
                << "@this is my test thing so let this be the longest line\n"
                << "@Let this be the second longest loine loine loine\n"
-               << "left text#right text\n"
+               << "left text---#right text\n"
                << "$this can be the wrapped thing\n"
                << "this is just left justified\n"
                << "$this should be in the wrapper\n"

@@ -68,7 +68,6 @@ bool checkForEven(int num)
 //find the bar length needed and 
 void TextFormat::calculateBarLength()
 {
-    //THERE IS A MINOR ERROR IN THIS FUNCTION, THE LENGTH OF THE TITLE BAR IS FOUND USING THE INPUT WITH COMMAND CHARACTERS, THESE WILL BE REMOVED LATER, THEN THE CENTERING WILL BE OFF BY +/- ONE CHAR, YOU NEED TO FIX THAT LATER BY MAKING THE removeAllCmdChar() function in this class;
     titleBarLength = 0;
 
     bool isTitleBarLenEven = false;
@@ -81,16 +80,16 @@ void TextFormat::calculateBarLength()
     //the longest line will probably have a command, that will be erased in processing so we substract one form the line length
     while (getline(inputString, lineData))
         if (((int)lineData.length()-1) > titleBarLength)
-            titleBarLength = ((int)lineData.length()-1);
+            titleBarLength = ((int)lineData.length() - 1);
 
-    isLineLenEven = checkForEven((int)lineData.length());
+    isLineLenEven = checkForEven((int)lineData.length() - 1);
 
     //title 5% > longest line, so:
     titleBarLength = round(titleBarLength + (titleBarLength*0.05));
 
     isTitleBarLenEven = checkForEven(titleBarLength);
 
-    if (!isTitleBarLenEven && isLineLenEven)
+    if ((!isTitleBarLenEven && isLineLenEven) || (isTitleBarLenEven && !isLineLenEven))
         titleBarLength++;
 }
 
@@ -107,7 +106,8 @@ void TextFormat::appendTitleBar()
 
 void TextFormat::centerText(string& text2Center)
 {
-    int textLength = (int)text2Center.length();
+    //-1 because we will replace the '@' character with ''
+    int textLength = (int)text2Center.length() - 1;
 
     //this calculates the space needed to shift the text to center it relative to the titleBar
     int spaceToCenter = round((titleBarLength - textLength) / 2);
@@ -126,8 +126,8 @@ void TextFormat::justifyText(string& text2Justify)
 
     int lenLeftText = 0;
 
-    if (text2Justify[0] != justifyChar)
-        //index of the left text = 0
+    if (text2Justify[0] != justifyChar || text2Justify.substr(0, 3) != "   ")
+        //index of the left text = 0, or there was a compoud command with a @ or $, leaving a lot of space in front of the str
         lenLeftText = text2Justify.find(justifyChar); 
     
     //we will not add one as that character will be replaced with "" later
